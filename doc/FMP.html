@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module FMP</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>FMP</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/s4my/Orange/Anritsu/src/FMP.py">/home/s4my/Orange/Anritsu/src/FMP.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td><td width="25%" valign=top><a href="string.html">string</a><br>
+<a href="telnetlib.html">telnetlib</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="FMP.html#FMP">FMP</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FMP">class <strong>FMP</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#FMP">FMP</a>(ipAddr:&nbsp;&amp;lt;module&nbsp;'string'&nbsp;from&nbsp;'/usr/lib/python3.10/string.py'&amp;gt;,&nbsp;port:&nbsp;int&nbsp;=&nbsp;9001)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+Field&nbsp;Master&nbsp;Pro&nbsp;class&nbsp;used&nbsp;to&nbsp;control&nbsp;the&nbsp;instrument.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FMP-__init__"><strong>__init__</strong></a>(self, ipAddr: &lt;module 'string' from '/usr/lib/python3.10/string.py'&gt;, port: int = 9001) -&gt; None</dt><dd><tt>Constructor.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ipAddr&nbsp;(string):&nbsp;IP&nbsp;Address&nbsp;of&nbsp;the&nbsp;analyzer&nbsp;(check&nbsp;system&nbsp;information).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;port&nbsp;(int):&nbsp;port&nbsp;of&nbsp;the&nbsp;analyzer&nbsp;(9001&nbsp;for&nbsp;Anritsu)</tt></dd></dl>
+
+<dl><dt><a name="FMP-abort"><strong>abort</strong></a>(self) -&gt; None</dt><dd><tt>Aborts&nbsp;any&nbsp;sweep&nbsp;in&nbsp;progress.</tt></dd></dl>
+
+<dl><dt><a name="FMP-continuousOff"><strong>continuousOff</strong></a>(self) -&gt; None</dt><dd><tt>Turns&nbsp;off&nbsp;continuous&nbsp;sweep&nbsp;mode.</tt></dd></dl>
+
+<dl><dt><a name="FMP-continuousOn"><strong>continuousOn</strong></a>(self) -&gt; None</dt><dd><tt>Turns&nbsp;on&nbsp;continuous&nbsp;sweep&nbsp;mode.</tt></dd></dl>
+
+<dl><dt><a name="FMP-drawData"><strong>drawData</strong></a>(self) -&gt; None</dt><dd><tt>Plots&nbsp;the&nbsp;traces.</tt></dd></dl>
+
+<dl><dt><a name="FMP-getId"><strong>getId</strong></a>(self) -&gt; &lt;module 'string' from '/usr/lib/python3.10/string.py'&gt;</dt><dd><tt>Identifies&nbsp;the&nbsp;instrument.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string:&nbsp;Instrument&nbsp;ID.</tt></dd></dl>
+
+<dl><dt><a name="FMP-getPointNumber"><strong>getPointNumber</strong></a>(self) -&gt; int</dt><dd><tt>Gets&nbsp;the&nbsp;number&nbsp;of&nbsp;points&nbsp;in&nbsp;the&nbsp;traces.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;Point&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-getRBW"><strong>getRBW</strong></a>(self) -&gt; float</dt><dd><tt>Gets&nbsp;the&nbsp;Resolution&nbsp;Bandwidth.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;Resolution&nbsp;Bandwidth&nbsp;(Hz)</tt></dd></dl>
+
+<dl><dt><a name="FMP-getRefLvl"><strong>getRefLvl</strong></a>(self) -&gt; float</dt><dd><tt>Gets&nbsp;the&nbsp;Reference&nbsp;level.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;Amplitude&nbsp;reference&nbsp;(top&nbsp;limit&nbsp;in&nbsp;dB).</tt></dd></dl>
+
+<dl><dt><a name="FMP-getStartFreq"><strong>getStartFreq</strong></a>(self) -&gt; float</dt><dd><tt>Gets&nbsp;the&nbsp;start&nbsp;frequency.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;Start&nbsp;frequency&nbsp;(GHz).</tt></dd></dl>
+
+<dl><dt><a name="FMP-getStopFreq"><strong>getStopFreq</strong></a>(self) -&gt; float</dt><dd><tt>Gets&nbsp;the&nbsp;stop&nbsp;frequency.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;Stop&nbsp;frequency&nbsp;(GHz).</tt></dd></dl>
+
+<dl><dt><a name="FMP-getSweepCount"><strong>getSweepCount</strong></a>(self, nb: int) -&gt; int</dt><dd><tt>Gets&nbsp;the&nbsp;current&nbsp;sweep&nbsp;number.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int:&nbsp;Current&nbsp;sweep&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-getTrace"><strong>getTrace</strong></a>(self, nb: int) -&gt; list[float]</dt><dd><tt>Gets&nbsp;a&nbsp;specific&nbsp;trace&nbsp;data.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;The&nbsp;trace&nbsp;number.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list[float]:&nbsp;The&nbsp;trace&nbsp;data&nbsp;parsed&nbsp;as&nbsp;a&nbsp;float&nbsp;list.</tt></dd></dl>
+
+<dl><dt><a name="FMP-getTraceScale"><strong>getTraceScale</strong></a>(self) -&gt; float</dt><dd><tt>Gets&nbsp;the&nbsp;trace&nbsp;vertical&nbsp;scale<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;Scale&nbsp;(dB/division)</tt></dd></dl>
+
+<dl><dt><a name="FMP-getTraces"><strong>getTraces</strong></a>(self) -&gt; list[list[float]]</dt><dd><tt>Gets&nbsp;all&nbsp;the&nbsp;instrument&nbsp;traces.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list[list[float]]:&nbsp;The&nbsp;traces&nbsp;data&nbsp;parsde&nbsp;as&nbsp;a&nbsp;float&nbsp;matrix.</tt></dd></dl>
+
+<dl><dt><a name="FMP-send_command"><strong>send_command</strong></a>(self, command: &lt;module 'string' from '/usr/lib/python3.10/string.py'&gt;) -&gt; &lt;module 'string' from '/usr/lib/python3.10/string.py'&gt;</dt><dd><tt>Send&nbsp;a&nbsp;command&nbsp;to&nbsp;the&nbsp;instrument&nbsp;and&nbsp;read&nbsp;the&nbsp;response.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;command&nbsp;(string):&nbsp;Telnet&nbsp;command.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string:&nbsp;Telnet&nbsp;response&nbsp;given&nbsp;by&nbsp;the&nbsp;instrument.</tt></dd></dl>
+
+<dl><dt><a name="FMP-setParam"><strong>setParam</strong></a>(self, startFreq: float, stopFreq: float, gainRef: float, gainScale: float, rbw: float)</dt><dd><tt>Sets&nbsp;the&nbsp;instrument&nbsp;main&nbsp;parameters.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;startFreq&nbsp;(float):&nbsp;Start&nbsp;frequency&nbsp;(GHz).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;stopFreq&nbsp;(float):&nbsp;Stop&nbsp;frequency&nbsp;(GHz).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;gainRef&nbsp;(float):&nbsp;Top&nbsp;gain&nbsp;limit&nbsp;(dB)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;gainScale&nbsp;(float):&nbsp;Cell&nbsp;scale&nbsp;(dB/division)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rbw&nbsp;(float):&nbsp;Rsolution&nbsp;bandwidth&nbsp;(kHz)</tt></dd></dl>
+
+<dl><dt><a name="FMP-setRBW"><strong>setRBW</strong></a>(self, freq: float) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;Resolution&nbsp;Bandwidth.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;freq&nbsp;(float):&nbsp;Resolution&nbsp;Bandwidth&nbsp;(Hz).</tt></dd></dl>
+
+<dl><dt><a name="FMP-setRefLvl"><strong>setRefLvl</strong></a>(self, ampl: float) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;Reference&nbsp;level&nbsp;to&nbsp;the&nbsp;corresponding&nbsp;amplitude.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ampl&nbsp;(float):&nbsp;Amplitude&nbsp;reference&nbsp;(top&nbsp;limit&nbsp;in&nbsp;dB).</tt></dd></dl>
+
+<dl><dt><a name="FMP-setStartFreq"><strong>setStartFreq</strong></a>(self, freq: float) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;start&nbsp;frequency.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;freq&nbsp;(float):&nbsp;Start&nbsp;frequency&nbsp;(GHz).</tt></dd></dl>
+
+<dl><dt><a name="FMP-setStopFreq"><strong>setStopFreq</strong></a>(self, freq: float) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;stop&nbsp;frequency.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;freq&nbsp;(float):&nbsp;Stop&nbsp;frequency&nbsp;(GHz).</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceMode"><strong>setTraceMode</strong></a>(self, nb: int, mode: &lt;module 'string' from '/usr/lib/python3.10/string.py'&gt;) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;mode.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mode&nbsp;(string):&nbsp;Trace&nbsp;mode&nbsp;&lt;Active&nbsp;|&nbsp;Hold/View&nbsp;|&nbsp;Blank&gt;</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceModeActive"><strong>setTraceModeActive</strong></a>(self, nb: int) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;to&nbsp;Active&nbsp;mode.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceModeBlank"><strong>setTraceModeBlank</strong></a>(self, nb: int) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;to&nbsp;Blank&nbsp;mode.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceModeHold"><strong>setTraceModeHold</strong></a>(self, nb: int) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;to&nbsp;Hold/View&nbsp;mode.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceScale"><strong>setTraceScale</strong></a>(self, scale: float) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;trace&nbsp;vertical&nbsp;scale.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;scale&nbsp;(float):&nbsp;Scale&nbsp;(dB/division).</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceType"><strong>setTraceType</strong></a>(self, nb: int, type: &lt;module 'string' from '/usr/lib/python3.10/string.py'&gt;) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;type.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;type&nbsp;(string):&nbsp;Trace&nbsp;type&nbsp;:&nbsp;&lt;NORM&nbsp;|&nbsp;MIN&nbsp;|&nbsp;MAX&nbsp;|&nbsp;AVER&gt;</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceTypeAverage"><strong>setTraceTypeAverage</strong></a>(self, nb: int) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;to&nbsp;Average&nbsp;type.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceTypeClearWrite"><strong>setTraceTypeClearWrite</strong></a>(self, nb: int) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;to&nbsp;Clear/Write&nbsp;type.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceTypeMax"><strong>setTraceTypeMax</strong></a>(self, nb: int) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;to&nbsp;Max&nbsp;Hold&nbsp;type.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-setTraceTypeMin"><strong>setTraceTypeMin</strong></a>(self, nb: int) -&gt; None</dt><dd><tt>Sets&nbsp;the&nbsp;selected&nbsp;trace&nbsp;to&nbsp;Min&nbsp;Hold&nbsp;type.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nb&nbsp;(int):&nbsp;Trace&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FMP-sweepLaunch"><strong>sweepLaunch</strong></a>(self) -&gt; None</dt><dd><tt>Starts&nbsp;a&nbsp;measurement&nbsp;sweep.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>traces</strong> = range(1, 7)</td></tr></table>
+</body></html>
