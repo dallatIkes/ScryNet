@@ -21,7 +21,7 @@ def center_window(window) -> None:
     """
     window.update_idletasks()
     width = window.winfo_width()
-    height = window.winfo_height()
+    height = window.winfo_height()  
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
     x = (screen_width - width) // 2
@@ -39,7 +39,7 @@ class GUI:
         # Window configuration
         self.window = ttk.Window(themename='darkly')
         self.window.withdraw()
-        self.window.geometry('1650x900+100+50')
+        self.window.geometry('1650x900')
         center_window(self.window)
         self.window.title('ScryNet')
         self.window.iconbitmap('../assets/icon.ico')
@@ -56,7 +56,7 @@ class GUI:
         """Displays the splash screen.
         """
         self.splash = ttk.Toplevel(self.window)
-        self.splash.geometry('400x500+500+300')
+        self.splash.geometry('400x500')
         center_window(self.splash)
         self.splash.overrideredirect(True)
 
@@ -105,16 +105,19 @@ class GUI:
         self.drawConfigFrame('Amplitude limite en haut\n(en dB)', self.amplRef, self.fmp.getRefLvl, 2)
         self.drawConfigFrame('Échelle d\'amplitude\n(en dB/div)', self.amplCase, self.fmp.getTraceScale, 3)
         self.drawConfigFrame('Largeur de bande\n(en Hz)', self.rbw, self.fmp.getRBW, 4)
-
-        def applyParam(event=None) -> None:
-            self.fmp.setParam(
-            float(self.startFreq.get()),
-            float(self.stopFreq.get()),
-            float(self.amplRef.get()),
-            float(self.amplCase.get()),
-            float(self.rbw.get()))
         
-        ttk.Button(master=self.configFrame, text='Appliquer', takefocus=False, command=applyParam).grid(row=1, column=5, sticky='s')
+        ttk.Button(master=self.configFrame, text='Appliquer', takefocus=False, command=self.applyParam).grid(row=1, column=5, sticky='s')
+        
+        self.presetBtnFrame = ttk.Frame(master=self.configFrame)
+
+        self.drawPresetBtn('WiFi 2', '2.4', '2.5')
+        self.drawPresetBtn('WiFi 5', '5.170', '5.730')
+        self.drawPresetBtn('WiFi 6E', '5.925', '6.425')
+        self.drawPresetBtn('Preset 4', '0', '9')
+        self.drawPresetBtn('Preset 5', '0', '9')
+
+        self.presetBtnFrame.grid(row=2, column=0, columnspan=2, sticky='ew')
+        
         
         # Trace frame
         self.traceFrame = ttk.Frame(master=self.tabs)
@@ -155,7 +158,7 @@ class GUI:
             match currentTab:
                 case 'Paramètres':
                     self.window.unbind_all('<Key>')
-                    self.window.bind('<Return>', applyParam)
+                    self.window.bind('<Return>', lambda _: self.applyParam())
                 case 'Traces':
                     self.window.unbind_all('<Key>')
                     pass
@@ -176,6 +179,16 @@ class GUI:
 
         # # Application loop
         # self.window.mainloop()
+
+    def applyParam(self, event=None) -> None:
+        """Applies the selected parameters.
+        """
+        self.fmp.setParam(
+        float(self.startFreq.get()),
+        float(self.stopFreq.get()),
+        float(self.amplRef.get()),
+        float(self.amplCase.get()),
+        float(self.rbw.get()))
       
     def drawConfigFrame(self, title: string, var: ttk.StringVar,setDefaultValueFunc: Callable[[None], float], col: int) -> None:
         """Draws a custom frame to configure the instrument's parameters.
@@ -194,6 +207,27 @@ class GUI:
         
         paramInput.pack(expand=1, fill='both')
         inputFrame.grid(row=1, column=col, sticky='s')
+
+    def applyPreset(self, startFreq: string, stopFreq: string) -> None:
+        """Applies a preset
+
+        Args:
+            startFreq (float): Preset start frequency.
+            stopFreq (float): Preset stop fequency.
+        """
+        self.startFreq.set(startFreq)
+        self.stopFreq.set(stopFreq)
+        self.applyParam()
+
+    def drawPresetBtn(self, text: string, startFreq: string, stopFreq: string) -> None:
+        """Draws a button that applies a specific preset.
+
+        Args:
+            text (string): Preset name.
+            startFreq (float): Preset start frequency.
+            stopFreq (float): Preset stop frequency.
+        """
+        ttk.Button(master=self.presetBtnFrame, text=text, takefocus=False, command=lambda: self.applyPreset(startFreq, stopFreq)).pack(side='left', expand=1)
         
       
     def drawTraceFrame(self, num: int) -> None:
@@ -298,8 +332,10 @@ class GUI:
         """Saves the current plot into the 'saves' directory.
         """
         self.saveWindow = ttk.Toplevel(self.window)
-        self.saveWindow.geometry('460x180+500+500')
+        self.saveWindow.withdraw()
+        self.saveWindow.geometry('460x180')
         center_window(self.saveWindow)
+        self.saveWindow.deiconify()
         self.saveWindow.resizable(False, False)
         self.saveWindow.overrideredirect(True)
         
