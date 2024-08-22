@@ -172,6 +172,8 @@ class GUI:
         self.tabs.bind('<<NotebookTabChanged>>', on_tab_change)
         
         self.tabs.pack(expand=1, fill='both')
+
+        self.window.bind('<Return>', lambda _: self.applyParam())
         
         # App finished loading
         self.splash.destroy()
@@ -180,7 +182,7 @@ class GUI:
         # # Application loop
         # self.window.mainloop()
 
-    def applyParam(self, event=None) -> None:
+    def applyParam(self) -> None:
         """Applies the selected parameters.
         """
         self.fmp.setParam(
