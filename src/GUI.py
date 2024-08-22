@@ -1,3 +1,4 @@
+import sys
 import string
 import threading
 from typing import Callable
@@ -5,6 +6,7 @@ import time
 import tkinter as tk
 from tkinter import font
 import ttkbootstrap as ttk
+from ttkbootstrap.dialogs import Messagebox
 import numpy as np
 import datetime
 import matplotlib.pyplot as plt
