@@ -1,4 +1,5 @@
 import string
+import threading
 from typing import Callable
 import time
 import tkinter as tk
@@ -12,6 +13,21 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from FMP import FMP
 
+def center_window(window) -> None:
+    """Function to center a window on the screen.
+
+    Args:
+        window : window to center.
+    """
+    window.update_idletasks()
+    width = window.winfo_width()
+    height = window.winfo_height()
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    x = (screen_width - width) // 2
+    y = (screen_height - height) // 2
+    window.geometry(f"{width}x{height}+{x}+{y-50}")
+
 class GUI:
     """GUI for the application.
     """
@@ -22,8 +38,42 @@ class GUI:
         
         # Window configuration
         self.window = ttk.Window(themename='darkly')
-        self.window.geometry('1422x900')
-        self.window.title('Pilotage')
+        self.window.withdraw()
+        self.window.geometry('1650x900+100+50')
+        center_window(self.window)
+        self.window.title('ScryNet')
+        self.window.iconbitmap('../assets/icon.ico')
+
+        # Draws the splash screen while the main application is loading
+        self.drawSplashScreen()
+        threading.Thread(target=self.loadApp).start()
+        self.splash.mainloop()
+
+        # Application loop
+        self.window.mainloop()
+
+    def drawSplashScreen(self) -> None:
+        """Displays the splash screen.
+        """
+        self.splash = ttk.Toplevel(self.window)
+        self.splash.geometry('400x500+500+300')
+        center_window(self.splash)
+        self.splash.overrideredirect(True)
+
+        ttk.Label(master=self.splash, text='ScryNet', font='Arial 20').pack(expand=1)
+        self.logo = ttk.PhotoImage(file='../assets/logo.png')
+        ttk.Label(master=self.splash, image=self.logo).pack(expand=1)
+        ttk.Label(master=self.splash, text='Lancement de l\'application...').pack(expand=1)
+        self.splashProgress = ttk.Progressbar(master=self.splash, mode='indeterminate')
+        self.splashProgress.start()
+        self.splashProgress.pack(expand=1, fill='x', padx=20)
+        ttk.Label(master=self.splash, text='by Samy CHAABI - stagiaire ENSSAT - 2024', font='Arial 6').pack(expand=1)
+        self.splash.update()
+
+
+    def loadApp(self) -> None:
+        """Creates and loads the main application.
+        """
         
         # Style config
         self.font = 'Arial 20'
@@ -55,13 +105,16 @@ class GUI:
         self.drawConfigFrame('Amplitude limite en haut\n(en dB)', self.amplRef, self.fmp.getRefLvl, 2)
         self.drawConfigFrame('Échelle d\'amplitude\n(en dB/div)', self.amplCase, self.fmp.getTraceScale, 3)
         self.drawConfigFrame('Largeur de bande\n(en Hz)', self.rbw, self.fmp.getRBW, 4)
-        
-        ttk.Button(master=self.configFrame, text='Apply', takefocus=False, command=lambda: self.fmp.setParam(
+
+        def applyParam(event=None) -> None:
+            self.fmp.setParam(
             float(self.startFreq.get()),
             float(self.stopFreq.get()),
             float(self.amplRef.get()),
             float(self.amplCase.get()),
-            float(self.rbw.get()))).grid(row=1, column=5)
+            float(self.rbw.get()))
+        
+        ttk.Button(master=self.configFrame, text='Appliquer', takefocus=False, command=applyParam).grid(row=1, column=5, sticky='s')
         
         # Trace frame
         self.traceFrame = ttk.Frame(master=self.tabs)
@@ -83,30 +136,46 @@ class GUI:
         self.canvas = None
         
         self.plotFrame = ttk.Frame(master=self.tabs)
-        self.plotFrame.rowconfigure(0, weight=1)
-        self.plotFrame.rowconfigure(1, weight=1)
+        for row in range(2):
+            self.plotFrame.rowconfigure(row, weight=1)
         for col in range(2):
             self.plotFrame.columnconfigure(col, weight=1)
         
-        # ttk.Button(master=self.plotFrame, text='Show Plot', takefocus=False, command=self.plotGraph).grid(row=0, column=0, sticky='news')
-        # ttk.Button(master=self.plotFrame, text='Enregister', takefocus=False, command=self.saveGraph).grid(row=0, column=1, sticky='news')
+        self.progress = ttk.Progressbar(master=self.plotFrame, mode='indeterminate')
+        self.progressTitle = ttk.Label(master=self.plotFrame, text='Chargement du graphe...', font=self.font)
         
         # Adding tabs to the tab manager
         self.tabs.add(self.configFrame, text='Paramètres')
         self.tabs.add(self.traceFrame, text='Traces')
         self.tabs.add(self.plotFrame, text='Visualisation')
         
-        def on_tab_change(event):
-            if event.widget.tab(event.widget.select(), 'text') == 'Visualisation':
-                self.plotGraph()
-                self.window.state('zoomed')
+        # Binding shortcuts according to the current tab
+        def on_tab_change(event) -> None:
+            currentTab = event.widget.tab(event.widget.select(), 'text')
+            match currentTab:
+                case 'Paramètres':
+                    self.window.unbind_all('<Key>')
+                    self.window.bind('<Return>', applyParam)
+                case 'Traces':
+                    self.window.unbind_all('<Key>')
+                    pass
+                case 'Visualisation':
+                    self.window.unbind_all('<Key>')
+                    self.window.bind('<Control-s>', lambda _: self.saveGraph())
+                    self.window.bind('<Control-r>', lambda _: self.loadGraph())
+                    self.loadGraph()
+                    # self.window.state('zoomed')
         
         self.tabs.bind('<<NotebookTabChanged>>', on_tab_change)
         
         self.tabs.pack(expand=1, fill='both')
         
-        # Application loop
-        self.window.mainloop()
+        # App finished loading
+        self.splash.destroy()
+        self.window.deiconify()
+
+        # # Application loop
+        # self.window.mainloop()
       
     def drawConfigFrame(self, title: string, var: ttk.StringVar,setDefaultValueFunc: Callable[[None], float], col: int) -> None:
         """Draws a custom frame to configure the instrument's parameters.
@@ -124,7 +193,7 @@ class GUI:
         paramInput.bind('<FocusIn>', lambda _: var.set(''))
         
         paramInput.pack(expand=1, fill='both')
-        inputFrame.grid(row=1, column=col)
+        inputFrame.grid(row=1, column=col, sticky='s')
         
       
     def drawTraceFrame(self, num: int) -> None:
@@ -136,7 +205,7 @@ class GUI:
         
         traceName = ttk.Label(master=self.traceFrame, text=f'Trace {num}', font=self.font)
         
-        def setType(type: string):
+        def setType(type: string) -> None:
             if type=='Clear/Write':
                 self.fmp.setTraceTypeClearWrite(num)
             elif type=='Maximum':
@@ -152,7 +221,7 @@ class GUI:
         traceType.current(0)
         traceType.bind('<<ComboboxSelected>>', lambda _: setType(selectedTraceType.get()))
         
-        def setMode(mode: string):
+        def setMode(mode: string) -> None:
             if mode=='Active':
                 self.fmp.setTraceModeActive(num)
             elif mode=='Hold/View':
@@ -175,7 +244,7 @@ class GUI:
         traceMode.bind('<Button-1>', self.set_dropdown_font)
         
         
-    def set_dropdown_font(self, event):
+    def set_dropdown_font(self, event) -> None:
         """Sets the font for the dropdown menu items."""
         widget = event.widget
         widget.update()
@@ -184,7 +253,7 @@ class GUI:
         font_to_use = font.Font(family='Arial', size=20)
         widget.tk.call(dropdown_listbox, 'configure', '-font', font_to_use)
         
-    def plotGraph(self):
+    def plotGraph(self) -> None:
         """Generates and displays the plot in the Tkinter window."""
         frequencies = np.linspace(self.fmp.getStartFreq(), self.fmp.getStopFreq(), self.fmp.getPointNumber()-1)
         amplitudes = self.fmp.getTraces()
@@ -203,32 +272,45 @@ class GUI:
         self.ax.set_ylabel('Gain (dB)')
         self.ax.set_title('Graphe')
         self.ax.grid(True)
+
+        self.progress.stop()
+        self.progress.grid_forget()
+        self.progressTitle.grid_forget()
         
-        ttk.Button(master=self.plotFrame, text='Show Plot', takefocus=False, command=self.plotGraph).grid(row=0, column=0, sticky='news')
-        ttk.Button(master=self.plotFrame, text='Enregister', takefocus=False, command=self.saveGraph).grid(row=0, column=1, sticky='news')
+        # ttk.Button(master=self.plotFrame, text='Show Plot', takefocus=False, command=self.plotGraph).grid(row=0, column=0, sticky='news')
+        # ttk.Button(master=self.plotFrame, text='Enregister', takefocus=False, command=self.saveGraph).grid(row=0, column=1, sticky='news')
 
         if self.canvas is None:
             self.canvas = FigureCanvasTkAgg(self.fig, master=self.plotFrame)
-            self.canvas.draw()
-            self.canvas.get_tk_widget().grid(row=1, column=0, columnspan=2, sticky='news')
-        else:
-            self.canvas.draw()
-            
-    def saveGraph(self):
+        self.canvas.draw()
+        self.canvas.get_tk_widget().grid(row=1, column=0, columnspan=2, sticky='news')
+
+    def loadGraph(self) -> None:
+        if self.canvas:
+            self.canvas.get_tk_widget().grid_forget()
+        
+        self.progressTitle.grid(row=0, column=0, columnspan=2, sticky='s')
+        self.progress.grid(row=1, column=0, columnspan=2, sticky='new', padx=200, pady=50)
+        self.progress.start()
+        threading.Thread(target=self.plotGraph).start()
+
+    def saveGraph(self) -> None:
+        """Saves the current plot into the 'saves' directory.
+        """
         self.saveWindow = ttk.Toplevel(self.window)
         self.saveWindow.geometry('460x180+500+500')
+        center_window(self.saveWindow)
         self.saveWindow.resizable(False, False)
         self.saveWindow.overrideredirect(True)
         
-        def confirm_save():
+        def confirm_save() -> None:
             name = graphName.get()
-            print(name)  
             if name:  
-                self.fig.savefig('../saves/'+name+'.png')  
+                self.fig.savefig('../saves/'+name+'.png') # change to '../saves/'+name='.png' when compiled
                 self.saveWindow.destroy()
         
         graphName = ttk.StringVar()
-        graphName.set(datetime.datetime.now())
+        graphName.set(str(datetime.datetime.now()).replace(':', '_')) # ':' is a prohibited character in windows filenames
         ttk.Label(master=self.saveWindow, text='Sauvegarder le graphe', font=self.font).pack(pady=5)
         saveName = ttk.Entry(master=self.saveWindow, textvariable=graphName, font=self.font)
         saveName.bind('<FocusIn>', lambda _: graphName.set(''))

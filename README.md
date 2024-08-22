@@ -25,7 +25,7 @@ def autoVisu(bande):
 # trouve automatiquement les paramètres d'amplitude à sélectionner
 def amplAuto():
 ```
-- [ ] trace
+- [x] trace
 ```python
 # clear puis mesure selon le mode
 def trace(num, mode, nbMesure):
@@ -33,12 +33,12 @@ def trace(num, mode, nbMesure):
     # mode      : ['clear/write', 'min', 'max', 'average']
     # nbMesure  : nombre de mesures avant le hold (0 pour clear/write)
 ```
-- [ ] reset
+- [x] reset
 ```python
 # supprime toutes les traces hold
 def reset():
 ```
-- [ ] suppr
+- [x] suppr
 ```python
 # blank une trace
 def suppr(num):

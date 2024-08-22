@@ -30,9 +30,7 @@ class FMP:
         # self.continuousOff()
         # self.abort()
         
-        for traceNumber in traces:
-            self.setTraceTypeClearWrite(traceNumber)
-            self.setTraceModeBlank(traceNumber)
+        self.reset()
             
         # self.setTraceTypeClearWrite(1)
         # self.setTraceModeActive(1)
@@ -243,6 +241,13 @@ class FMP:
             nb (int): Trace number.
         """
         self.setTraceType(nb, 'AVERage')
+        
+    def reset(self) -> None:
+        """Blanks every trace.
+        """
+        for traceNumber in traces:
+            self.setTraceTypeClearWrite(traceNumber)
+            self.setTraceModeBlank(traceNumber)
 
     def getSweepCount(self, nb: int) -> int:
         """Gets the current sweep number.
