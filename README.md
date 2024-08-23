@@ -54,12 +54,12 @@ Pour l'instant, ScryNet dispose de 3 fenêtres principales :
       
       **Note:** 3 autres boutons de presets sont disponibles  référez vous au guide de programmation pour les personnaliser.
   
-- **Traces**
+- **Traces**  
   Fenêtre pour gérer les traces de l'instrument une par une :
   - Type : Clear/Write; Maximum; Minimum; Average
   - Mode : Active; Hold/View; Blank
     
-- **Visualisation**
+- **Visualisation**  
   Fenêtre pour visualiser les traces actives sur l'instrument. Une fois sur la fenêtre, la génération du graphe se lance automatiquement. Si jamais vous voulez rafraîchir le graphe, vous pouvez le faire à l'aide du raccourci clavier ``Ctrl+R``. Pour enregistrer le graphe affiché, appuyez sur ``Ctrl+S``. Une fenêtre s'ouvrira avec un nom de fichier par défaut (date d'enregistrement) que vous pouvez modifier. Après confirmation, vous trouverez l'image enregistrée dans le répertoire ``./saves/``.
 
 ## Guide de programmation
