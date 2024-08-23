@@ -1,8 +1,13 @@
 # Application de pilotage d'analyseur de spectre Anritsu MS2090A FieldMaster Pro : ScryNet
 
-Le but de ScryNet est de piloter à distance (par connexion WiFi ou Ethernet) les analyseurs de spectre Anritsu via des commandes Telnet. Pour ce faire, nous allons utiliser la bibliothèque python Telnetlib qui nous permet d'envoyer de telles requêtes. Le résultat final sera une application dotée d'une interface graphique générée grâce aux bibliothèques tkinter et matplotlib pour les graphes.
+Le but de ScryNet est de piloter à distance (par connexion WiFi ou Ethernet) les analyseurs de spectre Anritsu via des commandes Telnet. Pour ce faire, nous allons utiliser la bibliothèque python ``Telnetlib`` qui nous permet d'envoyer de telles requêtes. Le résultat final sera une application dotée d'une interface graphique générée grâce aux bibliothèques ``tkinter``, ``ttkbootstrap`` et ``matplotlib`` pour les graphes.
 
 Libre à vous de récupérer le projet et de le modifier pour satisfaire vos besoins ;)
+
+## Table des matières
+- [Guide d'installation](#guide-dinstallation)
+- [Guide d'utilisation](#guide-dutilisation)
+- [Guide de programmation](#guide-de-programmation)
 
 ## Guide d'installation
 
@@ -19,7 +24,7 @@ Premièrement, il va falloir récupérer le projet. Pour cela, deux options s'of
   
 [//]: # ()
       
-  Une fois le projet téléchargé, il va falloir l'installer. Pour ce faire, ouvrez [git bash](https://git-scm.com/downloads) dans le répertoire du projet et tapez la commande suivante :
+  Une fois le projet téléchargé, il va falloir l'installer à l'aide de ``pyInstaller``. Pour ce faire, ouvrez [git bash](https://git-scm.com/downloads) dans le répertoire du projet et tapez la commande suivante :
   ```bash
   ./make.sh build
   ```
@@ -59,61 +64,14 @@ Pour l'instant, ScryNet dispose de 3 fenêtres principales :
 
 ## Guide de programmation
 
-## Cahier des charges
+Le projet repose essentiellement sur 2 fichiers python principaux : ``./src/FMP.py`` pour la gestion des requêtes Telnet et ``./src/GUI.py`` pour ce qui est de l'interface graphique.  
+La documentation complète du projet est disponible en html générés par la bibliothèque ``pyDoc`` qui utilise les docstrings rédigés dans le code source. Pour ce faire, lancez la commande suivante :
+```bash
+./make.sh doc
+```
 
-- [x] param
-```python
-# définit les paramètres de visualisation de l'instrument
-def param(fdeb, ffin, amplRef, amplCase, vit):
-    # fdeb      : fréquence limite gauche
-    # ffin      : fréquence limite droite
-    # amplRef   : amplitude limite haut
-    # amplCase  : dB/div
-    # vit       : bandwidth
-```
-- [ ] autoVisu
-```python
-# renvoie les paramètres correspondant selon la bande à observer
-def autoVisu(bande):
-    # bande : ['2', '5', '6', 'large']
-```
-- [ ] amplAuto
-```python
-# trouve automatiquement les paramètres d'amplitude à sélectionner
-def amplAuto():
-```
-- [x] trace
-```python
-# clear puis mesure selon le mode
-def trace(num, mode, nbMesure):
-    # num       : numéro de la trace
-    # mode      : ['clear/write', 'min', 'max', 'average']
-    # nbMesure  : nombre de mesures avant le hold (0 pour clear/write)
-```
-- [x] reset
-```python
-# supprime toutes les traces hold
-def reset():
-```
-- [x] suppr
-```python
-# blank une trace
-def suppr(num):
-    # num   : numéro de la trace
-```
-- [ ] export
-```python
-# enregistre toutes les traces dans un fihcier excel
-def export(name):
-    # name  : nom du fichier
-```
-- [ ] wifi
-```python
-# affiche toutes les fréquences de début et fin du canal wifi
-def wifi():
-```
-- [x] affich
-```python
-# affiche la courbe actuelle visible sur l'instrument
-def affich():
-```
+[//]: # ()
+
+Vous trouverez toute la documentation générée dans le répertoire ``./doc/``.  
+
+Si malgré la documentation, certaines fonctionnalités restent peu claires, n'hésitez pas à me contacter par mail : ``samy.chaabi1@gmail.com``
