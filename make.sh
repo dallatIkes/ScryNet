@@ -9,7 +9,7 @@ doc(){
 
 build(){
     echo "=== Compilation du projet"
-    pyinstaller --onefile --add-data "saves;saves" --add-data "doc;doc" --add-data "src;src" --add-data "assets;assets" --icon=assets/icon.ico --name ScryNet src/main.py
+    pyinstaller --onefile --add-data "saves;saves" --add-data "doc;doc" --add-data "src;src" --add-data "assets;assets" --noconsole --icon=assets/icon.ico --name ScryNet src/main.py
 }
 
 run(){
